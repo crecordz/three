@@ -12,7 +12,7 @@ import * as dat from 'dat.gui'
  */
 // Debug
 const gui = new dat.GUI()
-
+gui.close()
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
@@ -52,6 +52,7 @@ const starsMaterial = new THREE.PointsMaterial({
     transparent: true,
     alphaMap: starsTexture
 })
+
 /**
  * UpdateMaterials
  */
@@ -95,7 +96,7 @@ gltfLoader.load(
         gltf.scene.rotation.y = Math.PI * 0.1
         scene.add(gltf.scene)
 
-        updateAllMaterials()
+        // updateAllMaterials()
     
     }
 )
@@ -153,15 +154,13 @@ fontLoader.load(
 
         const text = new THREE.Mesh(textGeometry, textMaterial)
         text.material.color.set('#78866b')
-        text.position.set(-2.5, 2.4, -4)
+        text.position.set(-2.5, 2.7, -4)
+        text.rotation.y = Math.PI / 4
+
         scene.add(text)
 
     }
 )
-const fog = new THREE.Fog('#66D52A', 4, 10)
-scene.fog = fog
- 
-
 
 /**
  * PointLight
@@ -270,7 +269,8 @@ const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
 
-    planet.rotation.y = elapsedTime * 0.03
+    planet.rotation.y = elapsedTime * 0.05
+    stars.rotation.y = elapsedTime * 0.02
     // Update controls
     controls.update()
 
